@@ -1,4 +1,4 @@
-# Important Information!
+# Important Information
 
 Thank you for downloading WebGoat!  This is the WebGoat Legacy version which is essentially the WebGoat 5 with a new UI. 
 
