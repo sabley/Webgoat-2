@@ -72,6 +72,14 @@
             </plugin>            
         </plugins>
     </build>
+	
+    <distributionManagement>
+      <repository>
+        <id>nexus</id>
+        <url>http://localhost:8070/repository/hosted_maven</url>
+      </repository>
+    </distributionManagement>
+
 
     <dependencies>
         <dependency>
