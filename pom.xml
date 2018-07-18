@@ -83,6 +83,11 @@
 
 
     <dependencies>
+	<dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-bundle</artifactId>
+            <version>1.11.325</version>
+        </dependency>
         <dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
