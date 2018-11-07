@@ -6,18 +6,18 @@ node {
       
       sh 'mvn clean install'
       
-      nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: selectedApplication('WebGoat-CI'), iqStage: 'build', jobCredentialsId: ''
+      //nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: selectedApplication('WebGoat-CI'), iqStage: 'build', jobCredentialsId: ''
    }
     stage ('Creating build tag') {
-        createTag nexusInstanceId: 'nexus', tagAttributesJson: '{"createdBy" : "JohnSmith"}', tagName: 'test005'
+        createTag nexusInstanceId: 'nexus', tagAttributesJson: '{"createdBy" : "JohnSmith"}', tagName: 'test006'
     }
     stage ('Publishing') {
-        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'hosted_maven', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/test pipeline/target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'webgoat-pipeline', packaging: 'war', version: '2.0']]], tagName: 'test005'
+        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'hosted_maven', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/test pipeline/target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'webgoat-pipeline', packaging: 'war', version: '2.0']]], tagName: 'test006'
     }
     stage ('Move') {
-        moveComponents destination: 'stage', nexusInstanceId: 'nexus', tagName: 'test005'
+        moveComponents destination: 'stage', nexusInstanceId: 'nexus', tagName: 'test006'
     }
     stage ('Delete') {
-        //deleteComponents nexusInstanceId: 'nx3', tagName: 'test005'
+        //deleteComponents nexusInstanceId: 'nx3', tagName: 'test006'
     } 
 }
