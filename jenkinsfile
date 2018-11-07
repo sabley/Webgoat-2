@@ -1,23 +1,22 @@
 node {
-
-   stage('Preparation') {
-      // Get some code from a GitHub repository
-      git 'https://github.com/JesseHouldsworth/WebGoat-Legacy.git'
-      
-      sh 'mvn clean install'
-      
-      //nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: selectedApplication('WebGoat-CI'), iqStage: 'build', jobCredentialsId: ''
-   }
-    stage ('Creating build tag') {
-        createTag nexusInstanceId: 'nexus', tagAttributesJson: '{"createdBy" : "JohnSmith"}', tagName: 'test006'
+    stage ('Build') {
+        //createTag nexusInstanceId: 'nx3', tagAttributesJson: '{"createdBy" : "JohnSmith"}', tagName: 'build-126'
     }
-    stage ('Publishing') {
-        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'hosted_maven', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/test pipeline/target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'webgoat-pipeline', packaging: 'war', version: '2.0']]], tagName: 'test006'
+    stage ('scan with iq with build policies') {
+        nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: selectedApplication('sandbox-application'), iqStage: 'build', jobCredentialsId: ''
     }
-    stage ('Move') {
-        moveComponents destination: 'stage', nexusInstanceId: 'nexus', tagName: 'test006'
+    stage ('Publish to Nexus build repository') {
+        //sh 'pwd'
+        nexusArtifactUploader artifacts: [[artifactId: 'webgoat.war', classifier: '', file: 'target/WebGoat-6.0.1.war', type: 'war']], credentialsId: '932ea8f1-36d6-456c-9796-16e07ad958ee', groupId: 'com.mycompany', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.1'
+        
+        //sh './associate.sh'
+        //nexusPublisher nexusInstanceId: 'nx3', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'fancyWidget', groupId: 'com.mycompany', packaging: 'war', version: '1.1']]], tagName: 'build-126'
     }
-    stage ('Delete') {
-        //deleteComponents nexusInstanceId: 'nx3', tagName: 'test006'
+    stage ('associate with tag') {
+        sh './associate.sh'
+        //moveComponents destination: 'maven-test', nexusInstanceId: 'nx3', tagName: 'build-126'
+    }
+    stage ('move to test repository') {
+        sh './move.sh'
     } 
 }
