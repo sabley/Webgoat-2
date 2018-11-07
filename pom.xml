@@ -77,7 +77,7 @@
     <distributionManagement>
       <repository>
         <id>nexus</id>
-        <url>http://localhost:8083/repository/hosted_maven</url>
+        <url>http://localhost:8081/repository/maven_hosted</url>
       </repository>
     </distributionManagement>
 
