@@ -2,18 +2,22 @@ node {
 
    stage('Preparation') {
       // Get some code from a GitHub repository
-      git 'https://github.com/JesseHouldsworth/WebGoat-Legacy.git'          
+      git 'https://github.com/JesseHouldsworth/WebGoat-Legacy.git'
+      
+      sh 'mvn clean install'
+      
+      //nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: selectedApplication('WebGoat-CI'), iqStage: 'build', jobCredentialsId: ''
    }
     stage ('Creating build tag') {
-        createTag nexusInstanceId: 'nexus', tagAttributesJson: '{"createdBy" : "JohnSmith"}', tagName: 'test004'
+        createTag nexusInstanceId: 'nexus', tagAttributesJson: '{"createdBy" : "JohnSmith"}', tagName: 'test005'
     }
     stage ('Publishing') {
-        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'hosted_maven', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/webgoat-pipeline/target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'webgoat-pipeline', packaging: 'war', version: '2.0']]], tagName: 'test004'
+        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'hosted_maven', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/webgoat-pipeline/target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'webgoat-pipeline', packaging: 'war', version: '2.0']]], tagName: 'test005'
     }
     stage ('Move') {
-        //moveComponents destination: 'maven-test', nexusInstanceId: 'nx3', tagName: 'test004'
+        moveComponents destination: 'maven-test', nexusInstanceId: 'nx3', tagName: 'test005'
     }
     stage ('Delete') {
-        //deleteComponents nexusInstanceId: 'nx3', tagName: 'test004'
+        //deleteComponents nexusInstanceId: 'nx3', tagName: 'test005'
     } 
 }
