@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
         /* This builds the actual image */
-
+	sh 'apt-get install maven'
         sh 'mvn clean install'
     }
 
