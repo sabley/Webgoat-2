@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
         /* This builds the actual image */
-        sh 'mvn clean install'
+        sh 'mvn clean package'
     }
 
     stage('Test image') {
