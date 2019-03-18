@@ -9,7 +9,9 @@ node {
 
     stage('Build image') {
         /* This builds the actual image */
-        sh 'mvn clean package'
+        //sh 'mvn clean package'
+	sh 'whoami'
+	sh 'pwd'
     }
 
     stage('Test image') {
