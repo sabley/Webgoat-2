@@ -14,9 +14,7 @@ node {
 
     stage('Test image') {
         
-        app.inside {
-            echo "Tests passed"
-        }
+        nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat'), iqStage: 'build', jobCredentialsId: ''
     }
 
     stage('Push image') {
