@@ -11,11 +11,15 @@ node {
         /* This builds the actual image */
         sh 'mvn clean package'
     }
-
+/*
     stage('Test image') {
         
         nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat'), iqStage: 'build', jobCredentialsId: ''
-    }
+    }*/
+    stage('Publish to NXRM') {
+        
+        nexusPublisher nexusInstanceId: 'nxrm3', nexusRepositoryId: 'maven-snapshots', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'web goat', groupId: 'com.yourcompany', packaging: 'war', version: '6.0.1']]]
+    }	
 /*
     stage('Push image') {
          
