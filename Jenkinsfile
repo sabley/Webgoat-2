@@ -17,8 +17,8 @@ node {
         nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat'), iqStage: 'build', jobCredentialsId: ''
     }*/
     stage('Publish to NXRM') {
-        
-        nexusPublisher nexusInstanceId: 'nxrm3', nexusRepositoryId: 'maven-snapshots', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'com.yourcompany', packaging: 'war', version: '6.0.1']]]
+        //nexusPublisher nexusInstanceId: 'nxrm3', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'fancyWidget', groupId: 'com.mycompany', packaging: 'war', version: '1.1']]], tagName: 'build-126'
+        nexusPublisher nexusInstanceId: 'nxrm3', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'fancyWidget', groupId: 'com.mycompany', packaging: 'war', version: '1.1']]]
     }	
 /*
     stage('Push image') {
