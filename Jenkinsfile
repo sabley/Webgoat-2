@@ -18,7 +18,7 @@ node {
     }*/
     stage('Publish to NXRM') {
         
-        nexusPublisher nexusInstanceId: 'nxrm3', nexusRepositoryId: 'maven-snapshots', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'web goat', groupId: 'com.yourcompany', packaging: 'war', version: '6.0.1']]]
+        nexusPublisher nexusInstanceId: 'nxrm3', nexusRepositoryId: 'maven-snapshots', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/WebGoat-6.0.1.war']], mavenCoordinate: [artifactId: 'webgoat', groupId: 'com.yourcompany', packaging: 'war', version: '6.0.1']]]
     }	
 /*
     stage('Push image') {
