@@ -8,7 +8,7 @@ node {
 
     stage('Build image') {
 
-        sh 'mvn clean package'
+        sh 'mvn clean package -DskipTests=true'
     }
 
     stage('Test image') {
