@@ -13,7 +13,7 @@ node {
 
     stage('Test image') {
         
-        nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat'), iqStage: 'build', jobCredentialsId: ''
+        nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat'), iqStage: 'release', jobCredentialsId: ''
     }
 	
     stage('Publish to NXRM') {
